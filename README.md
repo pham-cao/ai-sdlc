@@ -15,6 +15,8 @@ A Project Manager orchestrator that takes a project from idea to pull request. T
 | `sdlc:qa` | QA: verifies each task against acceptance criteria |
 | `sdlc:reviewer` | Reviewer: correctness, security and scope review |
 | Stop hook | Keeps the PM working while `state: running` |
+| Context7 MCP | Current library docs for Architect, Dev and QA |
+| Playwright MCP | Headless browser checks for Dev and QA |
 
 ### Install
 
@@ -22,6 +24,14 @@ A Project Manager orchestrator that takes a project from idea to pull request. T
 claude plugin marketplace add pham-cao/ai-sdlc
 claude plugin install sdlc@gem-ai-sdlc
 ```
+
+Requirements: Node.js 18+ (both MCP servers run through `npx`). Install the browser for Playwright once:
+
+```bash
+npx playwright install chromium
+```
+
+Context7 works without a key at a lower rate limit. For higher limits, set `CONTEXT7_API_KEY` in your shell before starting Claude Code.
 
 Optional companions: `pr-review-toolkit` (the PM runs `/review-pr` before opening a PR when it is installed) and `superpowers`.
 

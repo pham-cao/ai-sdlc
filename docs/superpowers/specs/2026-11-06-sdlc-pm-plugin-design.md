@@ -25,6 +25,7 @@ A Claude Code plugin where a Project Manager (PM) orchestrator takes a project f
 | `agents/dev.md` | One task, test first. |
 | `agents/qa.md` | Verifies one task against acceptance criteria. |
 | `agents/reviewer.md` | Reviews one task's diff. |
+| `.mcp.json` | Context7 (Architect, Dev, QA) and Playwright, headless and isolated (Dev, QA). |
 | `hooks/stop-guard.sh` | Stop hook that keeps the PM working while `state: running`. |
 
 ## Data layout in the target repo
