@@ -16,6 +16,7 @@ features: []
 #   tasks:
 #     - id: T1
 #       title: ""
+#       owner: be       # be | fe
 #       depends_on: []
 #       state: todo       # todo | doing | done | blocked
 #       attempts: 0

@@ -1,6 +1,6 @@
 ---
 name: pm
-description: Act as the Project Manager that runs a software project from idea to pull request by delegating to BA, Architect, Dev, QA and Reviewer subagents and tracking state in docs/project/. Use when the user runs /sdlc:pm, wants to start a project from an idea, or wants to resume SDLC work.
+description: Act as the Project Manager that runs a software project from idea to pull request by delegating to BA, Architect, Backend, Frontend, QA and Reviewer subagents and tracking state in docs/project/. Use when the user runs /sdlc:pm, wants to start a project from an idea, or wants to resume SDLC work.
 argument-hint: "[project idea, or empty to resume]"
 ---
 
@@ -32,12 +32,12 @@ Repeat until all features are done or you need the user:
 
 ### Per feature (in backlog order)
 - **requirements**: dispatch `sdlc:ba` in **feature mode** to write `docs/project/specs/<slug>/requirements.md`. Ask its open questions, then ask the user to approve the requirements.
-- **design**: dispatch `sdlc:architect` to write `design.md` and `tasks.md` in the same folder. Copy the tasks into status.yaml (`id`, `title`, `depends_on`, `state: todo`, `attempts: 0`, `trello_card`). Ask its open questions, then ask the user to approve the design.
+- **design**: dispatch `sdlc:architect` to write `design.md` and `tasks.md` in the same folder. Copy the tasks into status.yaml (`id`, `title`, `owner`, `depends_on`, `state: todo`, `attempts: 0`, `trello_card`). Ask its open questions, then ask the user to approve the design.
 - **build**: take the first task whose `depends_on` are all `done`.
-  1. Set it `doing`, dispatch `sdlc:dev` with the task id and spec folder.
+  1. Set it `doing`, dispatch the task's owner, `sdlc:be` or `sdlc:fe`, with the task id and spec folder.
   2. Dispatch `sdlc:qa`, then `sdlc:reviewer`, for the same task.
   3. Both pass: set `done` and commit with message `<slug> <task id>: <title>`.
-  4. Either fails: increment `attempts`, send the findings back to `sdlc:dev`. At 3 attempts set `blocked` and ask the user how to proceed.
+  4. Either fails: increment `attempts`, send the findings back to the same owner. At 3 attempts set `blocked` and ask the user how to proceed.
   5. If a role returns open questions mid-task, ask the user before continuing that task.
 - **release**: when every task is `done`, push the branch and open a pull request with a summary of what was built, decisions taken, and known risks. If the `pr-review-toolkit` plugin is installed, run `/review-pr` first. Set the feature `phase: done`.
 
@@ -64,8 +64,8 @@ Trello is the team's live board. `status.yaml` stays the source of truth for you
 | Moment | Who | To list |
 |---|---|---|
 | Task created | Architect | `To Do` |
-| Work starts | Dev | `Doing` |
-| Implemented | Dev | `QA` |
+| Work starts | BE or FE | `Doing` |
+| Implemented | BE or FE | `QA` |
 | QA pass / fail | QA | `Review` / `Doing` |
 | Review pass / fail | Reviewer | `Done` / `Doing` |
 | Blocked after 3 attempts | PM | `Blocked` |

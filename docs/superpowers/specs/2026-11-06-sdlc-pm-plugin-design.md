@@ -22,10 +22,11 @@ A Claude Code plugin where a Project Manager (PM) orchestrator takes a project f
 | `skills/pm/templates/` | Starting files for `status.yaml` and `decisions.md`. |
 | `agents/ba.md` | Idea to `backlog.md`; feature to `requirements.md` (EARS acceptance criteria). |
 | `agents/architect.md` | `requirements.md` to `design.md` and `tasks.md`. |
-| `agents/dev.md` | One task, test first. |
+| `agents/be.md` | One backend task, test first. |
+| `agents/fe.md` | One frontend task on `design-system.md`, using the frontend-design and ui-ux-pro-max skills, checked with Playwright at 1440px and 390px. |
 | `agents/qa.md` | Verifies one task against acceptance criteria. |
 | `agents/reviewer.md` | Reviews one task's diff. |
-| `.mcp.json` | Context7 (Architect, Dev, QA), Playwright, headless and isolated (Dev, QA), and the official Trello server (all roles except BA move their own task cards; status.yaml stays the PM's source of truth). |
+| `.mcp.json` | Context7 (Architect, BE, FE, QA), Playwright, headless and isolated (FE, QA), and the official Trello server (all roles except BA move their own task cards; status.yaml stays the PM's source of truth). |
 | `hooks/stop-guard.sh` | Stop hook that keeps the PM working while `state: running`. |
 
 ## Data layout in the target repo
@@ -34,6 +35,7 @@ A Claude Code plugin where a Project Manager (PM) orchestrator takes a project f
 docs/project/status.yaml        single source of truth
 docs/project/decisions.md       append-only decision log
 docs/project/backlog.md         features in priority order
+docs/project/design-system.md   shared UI tokens and rules, owned by FE
 docs/project/specs/<feature>/requirements.md, design.md, tasks.md
 ```
 
@@ -43,7 +45,7 @@ docs/project/specs/<feature>/requirements.md, design.md, tasks.md
 2. Per feature, in backlog order:
    1. BA writes `requirements.md`. PM asks open questions, user approves.
    2. Architect writes `design.md` and `tasks.md`. PM asks open questions, user approves.
-   3. For each task in dependency order: Dev, then QA, then Reviewer. A failure sends the task back to Dev with the findings. After 3 failed attempts the task is `blocked` and the PM asks the user.
+   3. For each task in dependency order: its owner (BE or FE), then QA, then Reviewer. A failure sends the task back to the owner with the findings. After 3 failed attempts the task is `blocked` and the PM asks the user.
    4. PM opens a pull request with a summary and waits for the user.
 
 ## Stop guard

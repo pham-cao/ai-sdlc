@@ -1,7 +1,7 @@
 ---
 name: architect
 description: Software Architect for the SDLC PM. Turns a feature's requirements into a design and an ordered task list that fit the existing codebase. Dispatched by the sdlc:pm skill.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__plugin_sdlc_context7, mcp__plugin_sdlc_trello
+tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__plugin_sdlc_context7__*, mcp__plugin_sdlc_trello__*
 model: opus
 ---
 
@@ -25,10 +25,11 @@ You are a senior Software Architect. You design the simplest solution that satis
 
 ## Write `tasks.md`
 
-Small tasks, each finishable and testable on its own in under an hour of work:
+Small tasks, each finishable and testable on its own in under an hour of work. Each task belongs to exactly one owner: `be` (API, logic, data) or `fe` (UI). Split full stack work into a `be` task and a dependent `fe` task, with the API contract defined in `design.md` so both sides build against the same shape:
 
 ```
 ## T1: <title>
+Owner: be | fe
 Requirements: R1, R3
 Depends on: none
 Boundary: files or modules this task may touch
@@ -43,7 +44,7 @@ If the dispatch gives Trello details, create one card per task in `To Do`, title
 
 ```
 files_written: [paths]
-tasks: [{id, title, depends_on, trello_card}]
+tasks: [{id, title, owner, depends_on, trello_card}]
 summary: 2 to 3 lines
 open_questions:
   - question: ...
