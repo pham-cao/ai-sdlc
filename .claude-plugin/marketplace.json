@@ -1,0 +1,15 @@
+{
+  "name": "gem-ai-sdlc",
+  "description": "GEM AI SDLC plugins for Claude Code.",
+  "owner": {
+    "name": "GEM",
+    "email": "caopv@gem-corp.tech"
+  },
+  "plugins": [
+    {
+      "name": "sdlc",
+      "source": "./plugins/sdlc",
+      "description": "PM orchestrator that runs a project from idea to pull request with BA, Architect, Dev, QA and Reviewer subagents."
+    }
+  ]
+}
