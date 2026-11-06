@@ -25,7 +25,7 @@ A Claude Code plugin where a Project Manager (PM) orchestrator takes a project f
 | `agents/dev.md` | One task, test first. |
 | `agents/qa.md` | Verifies one task against acceptance criteria. |
 | `agents/reviewer.md` | Reviews one task's diff. |
-| `.mcp.json` | Context7 (Architect, Dev, QA) and Playwright, headless and isolated (Dev, QA). |
+| `.mcp.json` | Context7 (Architect, Dev, QA), Playwright, headless and isolated (Dev, QA), and the official Trello server (PM only, read-only mirror of status.yaml). |
 | `hooks/stop-guard.sh` | Stop hook that keeps the PM working while `state: running`. |
 
 ## Data layout in the target repo
@@ -52,4 +52,4 @@ The hook does nothing unless `docs/project/status.yaml` exists with `state: runn
 
 ## Out of scope for now
 
-Jira and Confluence sync, headless CI runs, parallel task execution.
+Jira and Confluence sync (Trello is the interim board), headless CI runs, parallel task execution.

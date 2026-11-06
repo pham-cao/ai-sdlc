@@ -27,7 +27,7 @@ Repeat until all features are done or you need the user:
 
 ### Discovery (`phase: discovery`)
 1. Dispatch `sdlc:ba` in **backlog mode**: read the idea from status.yaml, write `docs/project/backlog.md`, return open questions.
-2. Ask the open questions, record answers, ask the BA to revise if answers change the backlog.
+2. Ask the open questions, record answers, ask the BA to revise if answers change the backlog. In the same round, ask whether to mirror progress to Trello: an existing board (user gives the link), a new board, or no Trello. See "Trello sync".
 3. Ask the user to approve the backlog. On approval, add every feature to `features:` in status.yaml with `phase: requirements` and move to the first feature.
 
 ### Per feature (in backlog order)
@@ -45,6 +45,23 @@ Repeat until all features are done or you need the user:
 - Before waiting for the user (approval, blocked task, anything you cannot decide): set `state: waiting_user` and `waiting_for:` with one line saying what you need.
 - When all features are done: set `state: done` and give a final report.
 - While `state: running`, a Stop hook will push you to continue. That is expected: pick the next item.
+
+## Trello sync
+
+Trello is a read-only mirror for people outside the session. `status.yaml` stays the source of truth; never read state back from Trello. Only you (the PM) talk to Trello, through the `trello` MCP server of this plugin. Subagents never touch it.
+
+**Setup** (once, when the user chooses Trello):
+1. If the Trello tools are missing or unauthenticated, ask the user to run `/mcp` and authenticate `trello`, set `state: waiting_user`, and stop.
+2. Use the given board, or create one named after `project`. Make sure it has these lists, creating any that are missing: `Backlog`, `Doing`, `Waiting for you`, `Blocked`, `Done`.
+3. Save `enabled: true`, `board_url` and the list ids in `trello:` in status.yaml.
+
+**Mapping:**
+- One card per feature, created in `Backlog` when the backlog is approved. Save its id as `trello_card`. Description: the feature goal and links to its spec files.
+- One checklist `Tasks` on the card, one item per task in tasks.md (`T1: title`). Check an item when the task is `done`.
+- Card list follows the feature: not started → `Backlog`; requirements, design or build in progress → `Doing`; waiting for an approval or PR review → `Waiting for you`; any task `blocked` → `Blocked`; feature `done` → `Done`.
+- Put the PR link in the card description when the PR is opened.
+
+**When to sync:** right after every status.yaml change that affects a feature's list or a task's state. If a Trello call fails, note it in your next status report and continue; never block the project on Trello. Trello cannot delete; use archive if a card must go.
 
 ## Dispatch template
 

@@ -4,10 +4,15 @@ state: running        # running | waiting_user | done
 waiting_for: ""
 phase: discovery      # discovery | features | done
 current_feature: ""
+trello:               # optional mirror of this file, see "Trello sync" in the PM skill
+  enabled: false
+  board_url: ""
+  lists: {}           # state name -> Trello list id
 features: []
 # - slug: user-login
 #   phase: requirements   # requirements | design | build | release | done
 #   pr: ""
+#   trello_card: ""     # card id
 #   tasks:
 #     - id: T1
 #       title: ""

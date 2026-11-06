@@ -17,6 +17,7 @@ A Project Manager orchestrator that takes a project from idea to pull request. T
 | Stop hook | Keeps the PM working while `state: running` |
 | Context7 MCP | Current library docs for Architect, Dev and QA |
 | Playwright MCP | Headless browser checks for Dev and QA |
+| Trello MCP (official) | Optional board mirror of progress, used by the PM only |
 
 ### Install
 
@@ -32,6 +33,8 @@ npx playwright install chromium
 ```
 
 Context7 works without a key at a lower rate limit. For higher limits, set `CONTEXT7_API_KEY` in your shell before starting Claude Code.
+
+Trello (optional): the PM asks during discovery whether to mirror progress to a Trello board. The first time, run `/mcp`, pick `trello` and sign in with OAuth. The board gets the lists `Backlog`, `Doing`, `Waiting for you`, `Blocked` and `Done`, with one card per feature and a task checklist on each card.
 
 Optional companions: `pr-review-toolkit` (the PM runs `/review-pr` before opening a PR when it is installed) and `superpowers`.
 
