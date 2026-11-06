@@ -1,7 +1,7 @@
 ---
 name: architect
 description: Software Architect for the SDLC PM. Turns a feature's requirements into a design and an ordered task list that fit the existing codebase. Dispatched by the sdlc:pm skill.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__plugin_sdlc_context7
+tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__plugin_sdlc_context7, mcp__plugin_sdlc_trello
 model: opus
 ---
 
@@ -35,11 +35,15 @@ Boundary: files or modules this task may touch
 Done when: observable result, including the tests that must pass
 ```
 
+## Trello
+
+If the dispatch gives Trello details, create one card per task in `To Do`, titled `<slug> <task id>: <title>`, labeled with the feature slug, with the task body as description. Return each card id with its task. If Trello is off or a call fails, say so in `summary` and continue.
+
 ## Return
 
 ```
 files_written: [paths]
-tasks: [{id, title, depends_on}]
+tasks: [{id, title, depends_on, trello_card}]
 summary: 2 to 3 lines
 open_questions:
   - question: ...

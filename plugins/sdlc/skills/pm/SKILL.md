@@ -32,7 +32,7 @@ Repeat until all features are done or you need the user:
 
 ### Per feature (in backlog order)
 - **requirements**: dispatch `sdlc:ba` in **feature mode** to write `docs/project/specs/<slug>/requirements.md`. Ask its open questions, then ask the user to approve the requirements.
-- **design**: dispatch `sdlc:architect` to write `design.md` and `tasks.md` in the same folder. Copy the tasks into status.yaml (`id`, `title`, `depends_on`, `state: todo`, `attempts: 0`). Ask its open questions, then ask the user to approve the design.
+- **design**: dispatch `sdlc:architect` to write `design.md` and `tasks.md` in the same folder. Copy the tasks into status.yaml (`id`, `title`, `depends_on`, `state: todo`, `attempts: 0`, `trello_card`). Ask its open questions, then ask the user to approve the design.
 - **build**: take the first task whose `depends_on` are all `done`.
   1. Set it `doing`, dispatch `sdlc:dev` with the task id and spec folder.
   2. Dispatch `sdlc:qa`, then `sdlc:reviewer`, for the same task.
@@ -48,20 +48,31 @@ Repeat until all features are done or you need the user:
 
 ## Trello sync
 
-Trello is a read-only mirror for people outside the session. `status.yaml` stays the source of truth; never read state back from Trello. Only you (the PM) talk to Trello, through the `trello` MCP server of this plugin. Subagents never touch it.
+Trello is the team's live board. `status.yaml` stays the source of truth for you; Trello shows the same progress to people outside the session. Each role moves the cards for its own work through the `trello` MCP server of this plugin, and you handle setup, feature cards and anything the roles do not cover.
 
 **Setup** (once, when the user chooses Trello):
 1. If the Trello tools are missing or unauthenticated, ask the user to run `/mcp` and authenticate `trello`, set `state: waiting_user`, and stop.
-2. Use the given board, or create one named after `project`. Make sure it has these lists, creating any that are missing: `Backlog`, `Doing`, `Waiting for you`, `Blocked`, `Done`.
+2. Use the given board, or create one named after `project`. Make sure it has these lists, creating any that are missing: `Backlog`, `To Do`, `Doing`, `QA`, `Review`, `Waiting for you`, `Blocked`, `Done`.
 3. Save `enabled: true`, `board_url` and the list ids in `trello:` in status.yaml.
 
-**Mapping:**
-- One card per feature, created in `Backlog` when the backlog is approved. Save its id as `trello_card`. Description: the feature goal and links to its spec files.
-- One checklist `Tasks` on the card, one item per task in tasks.md (`T1: title`). Check an item when the task is `done`.
-- Card list follows the feature: not started → `Backlog`; requirements, design or build in progress → `Doing`; waiting for an approval or PR review → `Waiting for you`; any task `blocked` → `Blocked`; feature `done` → `Done`.
-- Put the PR link in the card description when the PR is opened.
+**Cards:**
+- Feature card (you): one per feature, created in `Backlog` when the backlog is approved, saved as `trello_card` on the feature. Move it to `Doing` when work on the feature starts, to `Waiting for you` at each approval gate, and to `Done` when the PR is opened (PR link in its description).
+- Task cards (Architect creates, roles move): one per task, titled `<slug> <task id>: <title>`, with the feature slug as a label. Save each id as `trello_card` on the task in status.yaml.
 
-**When to sync:** right after every status.yaml change that affects a feature's list or a task's state. If a Trello call fails, note it in your next status report and continue; never block the project on Trello. Trello cannot delete; use archive if a card must go.
+**Who moves a task card:**
+
+| Moment | Who | To list |
+|---|---|---|
+| Task created | Architect | `To Do` |
+| Work starts | Dev | `Doing` |
+| Implemented | Dev | `QA` |
+| QA pass / fail | QA | `Review` / `Doing` |
+| Review pass / fail | Reviewer | `Done` / `Doing` |
+| Blocked after 3 attempts | PM | `Blocked` |
+
+Each role also appends a one line note to the card description (`[role] result`) so people can see why a card moved.
+
+**Your checks:** after every dispatch, confirm the role reported its Trello move; if it did not or a call failed, make the move yourself. Never block the project on Trello: note failures in your next status report and continue. Trello cannot delete; archive if a card must go.
 
 ## Dispatch template
 
@@ -73,6 +84,7 @@ Task: <id and title, if any>
 Read: <files>
 Write: <files>
 Previous findings: <only on retry>
+Trello: <off, or board_url, list ids, and this task's card id>
 Return: the contract in your agent definition.
 ```
 

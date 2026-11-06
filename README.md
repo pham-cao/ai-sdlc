@@ -17,7 +17,7 @@ A Project Manager orchestrator that takes a project from idea to pull request. T
 | Stop hook | Keeps the PM working while `state: running` |
 | Context7 MCP | Current library docs for Architect, Dev and QA |
 | Playwright MCP | Headless browser checks for Dev and QA |
-| Trello MCP (official) | Optional board mirror of progress, used by the PM only |
+| Trello MCP (official) | Optional live board: each role moves its own task cards |
 
 ### Install
 
@@ -34,7 +34,7 @@ npx playwright install chromium
 
 Context7 works without a key at a lower rate limit. For higher limits, set `CONTEXT7_API_KEY` in your shell before starting Claude Code.
 
-Trello (optional): the PM asks during discovery whether to mirror progress to a Trello board. The first time, run `/mcp`, pick `trello` and sign in with OAuth. The board gets the lists `Backlog`, `Doing`, `Waiting for you`, `Blocked` and `Done`, with one card per feature and a task checklist on each card.
+Trello (optional): the PM asks during discovery whether to use a Trello board. The first time, run `/mcp`, pick `trello` and sign in with OAuth. The board gets the lists `Backlog`, `To Do`, `Doing`, `QA`, `Review`, `Waiting for you`, `Blocked` and `Done`. Each task is a card: the Architect creates it, Dev moves it to `Doing` and `QA`, QA moves it to `Review` or back, and the Reviewer moves it to `Done` or back. The PM owns one card per feature and the `Blocked` list.
 
 Optional companions: `pr-review-toolkit` (the PM runs `/review-pr` before opening a PR when it is installed) and `superpowers`.
 
