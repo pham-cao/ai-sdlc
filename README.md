@@ -37,15 +37,9 @@ Context7 works without a key at a lower rate limit. For higher limits, set `CONT
 
 Trello (optional): the PM asks during discovery whether to use a Trello board. The first time, run `/mcp`, pick `trello` and sign in with OAuth. The board gets the lists `Backlog`, `To Do`, `Doing`, `QA`, `Review`, `Waiting for you`, `Blocked` and `Done`. Each task is a card: the Architect creates it, BE or FE moves it to `Doing` and `QA`, QA moves it to `Review` or back, and the Reviewer moves it to `Done` or back. The PM owns one card per feature and the `Blocked` list.
 
-UI skills for the `fe` agent (recommended, install once):
+Installing `sdlc` also installs its UI skill dependencies, `frontend-design` (Anthropic, Apache 2.0) and `ui-ux-pro-max` (nextlevelbuilder, MIT). This marketplace lists them by reference to their upstream repos, pinned to a commit, so no code is copied. To move to a newer upstream version, update the `sha` in `.claude-plugin/marketplace.json`.
 
-```bash
-claude plugin install frontend-design@claude-plugins-official
-claude plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
-claude plugin install ui-ux-pro-max@ui-ux-pro-max-skill
-```
-
-Without them the `fe` agent still works, with weaker design guidance. They are not declared as hard dependencies because a missing cross-marketplace dependency would stop the whole `sdlc` plugin from loading.
+If you already installed either one from its own marketplace, you will have two copies enabled. Remove the older one to avoid duplicate skills, for example `claude plugin uninstall ui-ux-pro-max@ui-ux-pro-max-skill`.
 
 Optional companions: `pr-review-toolkit` (the PM runs `/review-pr` before opening a PR when it is installed) and `superpowers`.
 

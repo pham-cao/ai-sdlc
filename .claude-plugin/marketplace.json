@@ -10,6 +10,27 @@
       "name": "sdlc",
       "source": "./plugins/sdlc",
       "description": "PM orchestrator that runs a project from idea to pull request with BA, Architect, Dev, QA and Reviewer subagents."
+    },
+    {
+      "name": "frontend-design",
+      "description": "Anthropic's frontend-design skill, listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/frontend-design",
+        "sha": "a1ecfbc7f138a0ef455088f7f28cda2d22a0f853"
+      },
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": "UI/UX design intelligence skill by nextlevelbuilder, listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+        "sha": "b7d5353e0130feb8c5574ef1251f8a1db1873ccb"
+      },
+      "license": "MIT"
     }
   ]
 }
