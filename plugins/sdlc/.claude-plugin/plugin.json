@@ -1,7 +1,7 @@
 {
   "name": "sdlc",
   "version": "0.3.0",
-  "description": "PM orchestrator that runs a project from idea to pull request with BA, Architect, Dev, QA and Reviewer subagents.",
+  "description": "PM orchestrator that runs a project from idea to pull request with BA, UI/UX Designer, Architect, Backend, Frontend, QA and Reviewer subagents.",
   "author": {
     "name": "GEM"
   },

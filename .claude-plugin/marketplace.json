@@ -9,7 +9,7 @@
     {
       "name": "sdlc",
       "source": "./plugins/sdlc",
-      "description": "PM orchestrator that runs a project from idea to pull request with BA, Architect, Dev, QA and Reviewer subagents."
+      "description": "PM orchestrator that runs a project from idea to pull request with BA, UI/UX Designer, Architect, Backend, Frontend, QA and Reviewer subagents."
     },
     {
       "name": "frontend-design",
