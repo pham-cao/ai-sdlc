@@ -34,18 +34,37 @@ Repeat until all features are done or you need the user:
 - **requirements**: dispatch `sdlc:ba` in **feature mode** to write `docs/project/specs/<slug>/requirements.md`. Ask its open questions, then ask the user to approve the requirements.
 - **ux** (only when the feature has `has_ui: true`; otherwise go straight to design): dispatch `sdlc:ux` to write the user flows, screen inventory and clickable prototype in `docs/project/specs/<slug>/ux/` (and the project design system on the first UI feature). Before showing the user, check the return: `skills_used` must include `visual-critique:critique-screen`, and `ui-ux-pro-max:ui-ux-pro-max` when the design system was created or changed. If not, send it back to `sdlc:ux` to complete those steps. Ask its open questions. Then ask the user to review the design: give them the `review_entry` path to open in a browser, list the screenshots, and summarize the key decisions. Options: approve, or request changes (the user describes them). On changes, dispatch `sdlc:ux` again with the feedback and repeat until approved. No backend or frontend task for this feature starts before the UX is approved.
 - **design**: dispatch `sdlc:architect` to write `design.md` and `tasks.md` in the same folder. Copy the tasks into status.yaml (`id`, `title`, `owner`, `depends_on`, `state: todo`, `attempts: 0`, `trello_card`). Ask its open questions, then ask the user to approve the design.
+- **test-design**: dispatch `sdlc:qa` in **plan mode** to write the test plan, test cases and traceability matrix in `docs/project/specs/<slug>/qa/`. Check `skills_used` includes `test-automation-skills-agents:qa-manual-istqb`; if not, send it back. Ask its open questions. This is not an approval gate: tell the user in one line how many test cases cover how many requirements, and continue.
 - **build**: take the first task whose `depends_on` are all `done`.
   1. Set it `doing`, dispatch the task's owner, `sdlc:be` or `sdlc:fe`, with the task id and spec folder.
-  2. Dispatch `sdlc:qa`, then `sdlc:reviewer`, for the same task.
+  2. Dispatch `sdlc:qa` in **execute mode** for the task (on a retry, include the bug ids to retest), then `sdlc:reviewer`. Record `bugs_opened` on the task in status.yaml.
   3. Both pass: set `done` and commit with message `<slug> <task id>: <title>`.
-  4. Either fails: increment `attempts`, send the findings back to the same owner. At 3 attempts set `blocked` and ask the user how to proceed.
+  4. Either fails: increment `attempts`, send the reviewer findings and the bug reports (`docs/project/bugs/BUG-NNN.md`) back to the same owner. At 3 attempts set `blocked` and ask the user how to proceed.
   5. If a role returns open questions mid-task, ask the user before continuing that task.
-- **release**: when every task is `done`, push the branch and open a pull request with a summary of what was built, decisions taken, and known risks. If the `pr-review-toolkit` plugin is installed, run `/review-pr` first. Set the feature `phase: done`.
+- **test-report**: when every task is `done`, dispatch `sdlc:qa` in **report mode**. If `exit_criteria_met` is false (for example an open Critical or High bug), show the user the open bugs and ask whether to fix them first or release with the risk accepted; log the answer in decisions.md.
+- **release**: push the branch and open a pull request with a summary of what was built, decisions taken, known risks, and the test summary (link `qa/test-summary-report.md` and list open bugs). If the `pr-review-toolkit` plugin is installed, run `/review-pr` first. Set the feature `phase: done`.
 
 ### Stopping
 - Before waiting for the user (approval, blocked task, anything you cannot decide): set `state: waiting_user` and `waiting_for:` with one line saying what you need.
 - When all features are done: set `state: done` and give a final report.
 - While `state: running`, a Stop hook will push you to continue. That is expected: pick the next item.
+
+## QA specialists
+
+`sdlc:qa` leads all testing. Dispatch these specialists when `sdlc:qa` lists them in `specialists_needed`, or on your own when the trigger is obvious:
+
+| Agent | Dispatch when |
+|---|---|
+| `sdlc:qa-test-planner` | The app already runs but this area has no test cases (existing system, regression scope) |
+| `sdlc:qa-test-generator` | UI test cases need Playwright automation (JS or TS projects) |
+| `sdlc:qa-selenium` | Same, for Java and Selenium projects |
+| `sdlc:qa-api-tester` | A `be` task adds or changes API endpoints |
+| `sdlc:qa-test-healer` | E2E tests fail or flake and the cause looks like the tests |
+| `sdlc:qa-test-refactor` | The reviewer or QA flags duplicated or brittle test code |
+
+Usual sequences: new UI automation is generator then healer; flaky tests are healer then refactor; refactor is followed by healer if anything breaks. After specialists finish, dispatch `sdlc:qa` in execute mode again so it records results, evidence and bugs. Any `product_defects` a specialist reports go to `sdlc:qa` to log as bugs. Pass each specialist the feature slug, task id, test case ids, and how to start the app.
+
+Never dispatch the `test-automation-skills-agents:*` agents: they are written for another tool and lack working tools here. Use the `sdlc:qa-*` agents above, which are rebuilt from them.
 
 ## Trello sync
 
@@ -68,6 +87,7 @@ Trello is the team's live board. `status.yaml` stays the source of truth for you
 | Work starts | BE or FE | `Doing` |
 | Implemented | BE or FE | `QA` |
 | QA pass / fail | QA | `Review` / `Doing` |
+| Bug logged / closed / reopened | QA | new `BUG-NNN` card in `To Do` / `Done` / `To Do` |
 | Review pass / fail | Reviewer | `Done` / `Doing` |
 | Blocked after 3 attempts | PM | `Blocked` |
 
@@ -84,7 +104,8 @@ Spec folder: docs/project/specs/<slug>/
 Task: <id and title, if any>
 Read: <files>
 Write: <files>
-Previous findings: <only on retry>
+Mode: <plan | execute | report, for sdlc:qa only>
+Previous findings: <only on retry, including bug ids to retest>
 Trello: <off, or board_url, list ids, and this task's card id>
 Return: the contract in your agent definition.
 ```

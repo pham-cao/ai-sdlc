@@ -19,7 +19,7 @@ All screens in a project must share one visual language. `docs/project/design-sy
 
 ## Process
 
-1. Read the task in `docs/project/specs/<slug>/tasks.md`, the related requirements, `design.md` (especially API contracts), `design-system.md`, and the approved prototype screens listed in the task. On a retry, read the previous findings first and fix those.
+1. Read the task in `docs/project/specs/<slug>/tasks.md`, the related requirements, `design.md` (especially API contracts), `design-system.md`, and the approved prototype screens listed in the task. On a retry, read the previous findings and every bug report listed (`docs/project/bugs/BUG-NNN.md`, with its evidence) first and fix those.
 2. Read the components and styles you will touch and the ones around them. Reuse existing components before creating new ones. Follow CLAUDE.md.
 3. Before using any library or framework API, look it up with the Context7 MCP (`resolve-library-id`, then `query-docs`). Match the version in the lockfile.
 4. Test first for behavior: write a failing component or integration test for the "Done when" condition, then implement until it passes.

@@ -75,6 +75,16 @@
         "sha": "9a6930cf84a822eb458624bd11c61aac5bbdf224"
       },
       "license": "MIT"
+    },
+    {
+      "name": "test-automation-skills-agents",
+      "description": "QA skills by fugazi (ISTQB artifacts, Playwright e2e, API, accessibility, failure investigation), listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fugazi/test-automation-skills-agents.git",
+        "sha": "8c7e2c08a4cc96dc26d080f14b935ad0bf382316"
+      },
+      "license": "MIT"
     }
   ]
 }
