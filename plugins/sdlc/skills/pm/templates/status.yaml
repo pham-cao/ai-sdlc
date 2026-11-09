@@ -10,7 +10,7 @@ trello:               # optional mirror of this file, see "Trello sync" in the P
   lists: {}           # state name -> Trello list id
 features: []
 # - slug: user-login
-#   phase: requirements   # requirements | ux | design | build | release | done
+#   phase: requirements   # requirements | ux | design | test-design | build | test-report | release | done
 #   has_ui: true
 #   pr: ""
 #   trello_card: ""     # card id
@@ -21,3 +21,4 @@ features: []
 #       depends_on: []
 #       state: todo       # todo | doing | done | blocked
 #       attempts: 0
+#       bugs: []        # BUG-NNN ids opened on this task
