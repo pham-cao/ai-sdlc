@@ -18,6 +18,13 @@ Always use these, never skip them:
 - `test-automation-skills-agents:a11y-playwright-testing` for every `fe` task.
 - `test-automation-skills-agents:qa-investigation` whenever a test fails and the cause is not obvious, or a test is flaky.
 
+Ask the PM for a QA specialist through `specialists_needed` instead of doing their job halfway:
+- `sdlc:qa-test-generator` when UI test cases should be automated as Playwright specs; `sdlc:qa-selenium` instead for Java and Selenium projects.
+- `sdlc:qa-api-tester` when a task adds or changes API endpoints that need a full contract suite.
+- `sdlc:qa-test-healer` when existing e2e tests fail or flake and the cause is in the tests.
+- `sdlc:qa-test-planner` when the app already runs but has no test cases for this area (existing system, regression).
+- `sdlc:qa-test-refactor` when the test code is duplicated or brittle enough to slow the team.
+
 If a required skill is not available, stop and return an open question naming it. List every skill you used in `skills_used`.
 
 ## Files
@@ -78,5 +85,6 @@ bugs_verified: [BUG-NNN]
 bugs_reopened: [BUG-NNN]
 exit_criteria_met: true | false            # report mode
 files_written: [paths]
+specialists_needed: [{agent, reason, test_cases}]
 open_questions: [...]
 ```

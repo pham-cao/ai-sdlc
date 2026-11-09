@@ -49,6 +49,23 @@ Repeat until all features are done or you need the user:
 - When all features are done: set `state: done` and give a final report.
 - While `state: running`, a Stop hook will push you to continue. That is expected: pick the next item.
 
+## QA specialists
+
+`sdlc:qa` leads all testing. Dispatch these specialists when `sdlc:qa` lists them in `specialists_needed`, or on your own when the trigger is obvious:
+
+| Agent | Dispatch when |
+|---|---|
+| `sdlc:qa-test-planner` | The app already runs but this area has no test cases (existing system, regression scope) |
+| `sdlc:qa-test-generator` | UI test cases need Playwright automation (JS or TS projects) |
+| `sdlc:qa-selenium` | Same, for Java and Selenium projects |
+| `sdlc:qa-api-tester` | A `be` task adds or changes API endpoints |
+| `sdlc:qa-test-healer` | E2E tests fail or flake and the cause looks like the tests |
+| `sdlc:qa-test-refactor` | The reviewer or QA flags duplicated or brittle test code |
+
+Usual sequences: new UI automation is generator then healer; flaky tests are healer then refactor; refactor is followed by healer if anything breaks. After specialists finish, dispatch `sdlc:qa` in execute mode again so it records results, evidence and bugs. Any `product_defects` a specialist reports go to `sdlc:qa` to log as bugs. Pass each specialist the feature slug, task id, test case ids, and how to start the app.
+
+Never dispatch the `test-automation-skills-agents:*` agents: they are written for another tool and lack working tools here. Use the `sdlc:qa-*` agents above, which are rebuilt from them.
+
 ## Trello sync
 
 Trello is the team's live board. `status.yaml` stays the source of truth for you; Trello shows the same progress to people outside the session. Each role moves the cards for its own work through the `trello` MCP server of this plugin, and you handle setup, feature cards and anything the roles do not cover.

@@ -4,7 +4,7 @@ GEM's Claude Code plugin marketplace for AI-assisted software delivery.
 
 ## sdlc plugin
 
-A Project Manager orchestrator that takes a project from idea to pull request. The PM delegates to five role subagents, keeps all state in `docs/project/` inside your repo, and asks you whenever a decision is needed.
+A Project Manager orchestrator that takes a project from idea to pull request. The PM delegates to role subagents and QA specialists, keeps all state in `docs/project/` inside your repo, and asks you whenever a decision is needed.
 
 | Component | Role |
 |---|---|
@@ -15,6 +15,12 @@ A Project Manager orchestrator that takes a project from idea to pull request. T
 | `sdlc:be` | Backend Developer: APIs, logic and data, one task at a time, test first |
 | `sdlc:fe` | Frontend Developer: UI on a shared design system, checked in a browser at desktop and mobile width |
 | `sdlc:qa` | QA (ISTQB aligned): test plan, test cases and traceability per feature; executes each task with evidence; logs and retests bugs; writes the test summary report |
+| `sdlc:qa-test-planner` | QA specialist: explores a running app and writes e2e scenarios |
+| `sdlc:qa-test-generator` | QA specialist: turns scenarios into Playwright tests, performed live first |
+| `sdlc:qa-test-healer` | QA specialist: root causes and fixes failing or flaky e2e tests |
+| `sdlc:qa-api-tester` | QA specialist: API contract suites (Playwright request, Supertest, REST Assured) |
+| `sdlc:qa-selenium` | QA specialist: Selenium 4, JUnit 5 and POM tests for Java projects |
+| `sdlc:qa-test-refactor` | QA specialist: removes duplication and brittleness without changing coverage |
 | `sdlc:reviewer` | Reviewer: correctness, security and scope review |
 | Stop hook | Keeps the PM working while `state: running` |
 | Context7 MCP | Current library docs for Architect, BE, FE and QA |
@@ -74,7 +80,7 @@ Add `.claude/sdlc-stop.local` to your `.gitignore`.
 
 ### Credits
 
-Role prompts are written for GEM and draw on ideas from cc-sdd, GitHub Spec Kit, BMAD Method, Anthropic's feature-dev plugin and obra/superpowers.
+Role prompts are written for GEM and draw on ideas from cc-sdd, GitHub Spec Kit, BMAD Method, Anthropic's feature-dev plugin and obra/superpowers. The six `qa-*` specialist agents are adapted from fugazi/test-automation-skills-agents under the MIT License; see `plugins/sdlc/NOTICE.md`.
 
 ### Test
 

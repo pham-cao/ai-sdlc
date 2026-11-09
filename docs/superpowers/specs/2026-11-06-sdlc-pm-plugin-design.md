@@ -26,6 +26,7 @@ A Claude Code plugin where a Project Manager (PM) orchestrator takes a project f
 | `agents/be.md` | One backend task, test first. |
 | `agents/fe.md` | One frontend task on `design-system.md`, using the frontend-design and ui-ux-pro-max skills, checked with Playwright at 1440px and 390px. |
 | `agents/qa.md` | ISTQB aligned, three modes: plan (test plan, test cases, traceability), execute (per task, evidence for every case, bug log), report (test summary, exit criteria). Uses fugazi's qa-manual-istqb, playwright-e2e-testing, api-testing, a11y-playwright-testing and qa-investigation skills. |
+| `agents/qa-*.md` | Six QA specialists (planner, generator, healer, API, Selenium, refactor) rebuilt for Claude Code from fugazi's Copilot agents. `sdlc:qa` requests them through `specialists_needed`; the PM dispatches them. |
 | `agents/reviewer.md` | Reviews one task's diff. |
 | `.mcp.json` | Context7 (Architect, BE, FE, QA), Playwright, headless and isolated (FE, QA), and the official Trello server (all roles except BA move their own task cards; status.yaml stays the PM's source of truth). |
 | `hooks/stop-guard.sh` | Stop hook that keeps the PM working while `state: running`. |
