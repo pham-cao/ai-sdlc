@@ -31,6 +31,50 @@
         "sha": "b7d5353e0130feb8c5574ef1251f8a1db1873ccb"
       },
       "license": "MIT"
+    },
+    {
+      "name": "prototyping-testing",
+      "description": "Designer skill set by Owl-Listener (user flow diagrams, wireframe specs, heuristic evaluation), listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Owl-Listener/designer-skills.git",
+        "path": "prototyping-testing",
+        "sha": "9a6930cf84a822eb458624bd11c61aac5bbdf224"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "interaction-design",
+      "description": "Designer skill set by Owl-Listener (forms, error handling, loading states, navigation patterns), listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Owl-Listener/designer-skills.git",
+        "path": "interaction-design",
+        "sha": "9a6930cf84a822eb458624bd11c61aac5bbdf224"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "ux-strategy",
+      "description": "Designer skill set by Owl-Listener (information architecture and user flows), listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Owl-Listener/designer-skills.git",
+        "path": "ux-strategy",
+        "sha": "9a6930cf84a822eb458624bd11c61aac5bbdf224"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "visual-critique",
+      "description": "Designer skill set by Owl-Listener (hierarchy, color, typography and composition critique), listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Owl-Listener/designer-skills.git",
+        "path": "visual-critique",
+        "sha": "9a6930cf84a822eb458624bd11c61aac5bbdf224"
+      },
+      "license": "MIT"
     }
   ]
 }

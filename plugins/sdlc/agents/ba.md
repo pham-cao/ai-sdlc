@@ -14,7 +14,7 @@ Read the existing codebase and docs first when they exist, so requirements fit w
 Input: the project idea in `docs/project/status.yaml`.
 Write `docs/project/backlog.md`:
 - Product summary: problem, target users, success measures (3 to 5 lines).
-- Features in priority order. Each: `slug` (kebab-case), one line goal, MVP or later, dependencies on other features.
+- Features in priority order. Each: `slug` (kebab-case), one line goal, MVP or later, `has_ui` (true if users interact with it through screens), dependencies on other features.
 - Out of scope.
 Keep the MVP small. Prefer fewer, thinner features.
 

@@ -21,6 +21,7 @@ A Claude Code plugin where a Project Manager (PM) orchestrator takes a project f
 | `skills/pm/SKILL.md` | The PM loop: read status, pick next work, dispatch, update status, ask the user. |
 | `skills/pm/templates/` | Starting files for `status.yaml` and `decisions.md`. |
 | `agents/ba.md` | Idea to `backlog.md`; feature to `requirements.md` (EARS acceptance criteria). |
+| `agents/ux.md` | Requirements to `ux/flows.md` (Mermaid flows, screen inventory) and a clickable HTML prototype with screenshots; owns `design-system.md` and `design-system.css`. Uses designer-skills, ui-ux-pro-max and frontend-design. |
 | `agents/architect.md` | `requirements.md` to `design.md` and `tasks.md`. |
 | `agents/be.md` | One backend task, test first. |
 | `agents/fe.md` | One frontend task on `design-system.md`, using the frontend-design and ui-ux-pro-max skills, checked with Playwright at 1440px and 390px. |
@@ -44,9 +45,10 @@ docs/project/specs/<feature>/requirements.md, design.md, tasks.md
 1. Discovery: BA turns the idea into `backlog.md` and open questions. PM asks the user, then the user approves the backlog.
 2. Per feature, in backlog order:
    1. BA writes `requirements.md`. PM asks open questions, user approves.
-   2. Architect writes `design.md` and `tasks.md`. PM asks open questions, user approves.
-   3. For each task in dependency order: its owner (BE or FE), then QA, then Reviewer. A failure sends the task back to the owner with the findings. After 3 failed attempts the task is `blocked` and the PM asks the user.
-   4. PM opens a pull request with a summary and waits for the user.
+   2. UX Designer (features with `has_ui`) writes flows and a clickable prototype. User reviews it in a browser; changes loop back to the designer until approved. No BE or FE work starts before this.
+   3. Architect writes `design.md` and `tasks.md`, serving every screen and state in the prototype. PM asks open questions, user approves.
+   4. For each task in dependency order: its owner (BE or FE), then QA, then Reviewer. A failure sends the task back to the owner with the findings. After 3 failed attempts the task is `blocked` and the PM asks the user.
+   5. PM opens a pull request with a summary and waits for the user.
 
 ## Stop guard
 
