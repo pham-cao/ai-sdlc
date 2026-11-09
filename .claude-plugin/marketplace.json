@@ -1,0 +1,80 @@
+{
+  "name": "gem-ai-sdlc",
+  "description": "GEM AI SDLC plugins for Claude Code.",
+  "owner": {
+    "name": "GEM",
+    "email": "caopv@gem-corp.tech"
+  },
+  "plugins": [
+    {
+      "name": "sdlc",
+      "source": "./plugins/sdlc",
+      "description": "PM orchestrator that runs a project from idea to pull request with BA, UI/UX Designer, Architect, Backend, Frontend, QA and Reviewer subagents."
+    },
+    {
+      "name": "frontend-design",
+      "description": "Anthropic's frontend-design skill, listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/frontend-design",
+        "sha": "a1ecfbc7f138a0ef455088f7f28cda2d22a0f853"
+      },
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": "UI/UX design intelligence skill by nextlevelbuilder, listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+        "sha": "b7d5353e0130feb8c5574ef1251f8a1db1873ccb"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "prototyping-testing",
+      "description": "Designer skill set by Owl-Listener (user flow diagrams, wireframe specs, heuristic evaluation), listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Owl-Listener/designer-skills.git",
+        "path": "prototyping-testing",
+        "sha": "9a6930cf84a822eb458624bd11c61aac5bbdf224"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "interaction-design",
+      "description": "Designer skill set by Owl-Listener (forms, error handling, loading states, navigation patterns), listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Owl-Listener/designer-skills.git",
+        "path": "interaction-design",
+        "sha": "9a6930cf84a822eb458624bd11c61aac5bbdf224"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "ux-strategy",
+      "description": "Designer skill set by Owl-Listener (information architecture and user flows), listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Owl-Listener/designer-skills.git",
+        "path": "ux-strategy",
+        "sha": "9a6930cf84a822eb458624bd11c61aac5bbdf224"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "visual-critique",
+      "description": "Designer skill set by Owl-Listener (hierarchy, color, typography and composition critique), listed here so sdlc can install it as a dependency.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Owl-Listener/designer-skills.git",
+        "path": "visual-critique",
+        "sha": "9a6930cf84a822eb458624bd11c61aac5bbdf224"
+      },
+      "license": "MIT"
+    }
+  ]
+}
