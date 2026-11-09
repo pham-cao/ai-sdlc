@@ -50,7 +50,17 @@ If you already installed either one from its own marketplace, you will have two 
 
 Optional companions: `pr-review-toolkit` (the PM runs `/review-pr` before opening a PR when it is installed) and `superpowers`.
 
-For local development: `claude --plugin-dir ./plugins/sdlc`
+Update to a new release:
+
+```bash
+claude plugin marketplace update gem-ai-sdlc
+claude plugin update sdlc@gem-ai-sdlc
+claude plugin install sdlc@gem-ai-sdlc   # installs any dependency added in the new release
+```
+
+`plugin update` does not install newly added dependencies; the extra `install` does, and is harmless when nothing is missing. Restart Claude Code afterwards.
+
+For local development: `claude --plugin-dir ./plugins/sdlc` (dependencies must already be installed from the marketplace, or `sdlc` will not load)
 
 ### Use
 
